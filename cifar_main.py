@@ -29,7 +29,7 @@ import cifar_model
 import summary_utils
 import training_utils
 import utils
-
+import traceback
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -258,10 +258,13 @@ def evaluate():
 
 
 def main(_):
-  if FLAGS.mode == 'train':
-    train()
-  elif FLAGS.mode == 'eval':
-    evaluate()
+  try:
+    if FLAGS.mode == 'train':
+      train()
+    elif FLAGS.mode == 'eval':
+      evaluate()
+  except Exception as e:
+    traceback.print_exc(file=open('/script/sact1-buggy.txt','w+'))
 
 
 if __name__ == '__main__':
